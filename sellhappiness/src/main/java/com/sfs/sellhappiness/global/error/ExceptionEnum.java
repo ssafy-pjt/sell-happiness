@@ -13,7 +13,11 @@ public enum ExceptionEnum {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "E0003"),
 
     // Custom Exception
-    SECURITY(HttpStatus.UNAUTHORIZED, "CE0001", "로그인이 필요합니다");
+    SECURITY(HttpStatus.UNAUTHORIZED, "CE0001", "로그인이 필요합니다"),
+    EXPIRED_JWT(HttpStatus.UNAUTHORIZED,"CE0002","만료된 Access 토큰입니다. Refresh 토큰을 이용해서 새로운 Access 토큰을 발급 받으세요."),
+    INVALID_JWT(HttpStatus.UNAUTHORIZED, "CE0003", "지원되지 않거나 잘못된 토큰 입니다."),
+    ;
+
 
     private final HttpStatus status;
     private final String code;
