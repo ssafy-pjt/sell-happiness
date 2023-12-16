@@ -2,7 +2,11 @@ package com.sfs.sellhappiness.domain.member.domain;
 
 import com.sfs.sellhappiness.domain.cart.domain.Cart;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "member")
 public class Member {
