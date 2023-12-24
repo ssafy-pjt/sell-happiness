@@ -17,10 +17,10 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @Column(length = 20)
+    @Column(length = 50)
     private String email;
-    @Column(length = 10)
-    private String emailDomain;
+//    @Column(length = 10)
+//    private String emailDomain;
     @Column(length = 20)
     private String password;
     @Column(length = 100)
