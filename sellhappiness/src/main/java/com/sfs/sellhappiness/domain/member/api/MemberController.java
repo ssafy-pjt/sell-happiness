@@ -1,7 +1,9 @@
 package com.sfs.sellhappiness.domain.member.api;
 
 import com.sfs.sellhappiness.domain.member.application.MemberService;
+import com.sfs.sellhappiness.domain.member.dto.ReqMemberLogin;
 import com.sfs.sellhappiness.global.auth.JwtProperties;
+import com.sfs.sellhappiness.global.auth.dto.ResToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +22,9 @@ public class MemberController {
     // jwt 테스트
     // TODO: 회원 DTO 만들어서 JWT 테스트
     @PostMapping("/login")
-    public ResponseEntity<String> login() {
-
+    public ResponseEntity<ResToken> login(ReqMemberLogin reqMemberLogin) {
         return ResponseEntity.ok()
-                .body(memberService.login());
+                .body(memberService.login(reqMemberLogin));
     }
 
 

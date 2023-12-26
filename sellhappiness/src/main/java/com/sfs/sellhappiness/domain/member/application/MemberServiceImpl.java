@@ -6,6 +6,7 @@ import com.sfs.sellhappiness.global.auth.JwtProvider;
 import com.sfs.sellhappiness.global.auth.dto.ResToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +22,7 @@ public class MemberServiceImpl implements MemberService{
 
     private final JwtProvider jwtProvider;
     private final MemberJpaRepository memberJpaRepository;
+
     private final AuthenticationManager authenticationManager;
 
 

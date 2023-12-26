@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -116,6 +117,9 @@ public final class JwtProvider {
         }
     }
 
+    /**
+     * 토큰으로부터 클레임을 만들고, 이를 통해 User 객체 생성해 Authentication 객체 반환
+     */
     public Authentication getAuthentication(String token){
         String userPrincipal = Jwts.parserBuilder()
                 .setSigningKey(secretKey)
@@ -123,9 +127,11 @@ public final class JwtProvider {
                 .parseClaimsJws(token).getBody().getSubject();
 
         // TODO: 로직 수정하기
+        UserDetails userDetails = memberDetailsService.loadUserByUsername(userPrincipal);
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 
 //        return new UsernamePasswordAuthenticationToken(반환된userdetails, credentials, 반환된userdetails.getAuthorities());/
-        return null;
+//        return null;
 
     }
 
