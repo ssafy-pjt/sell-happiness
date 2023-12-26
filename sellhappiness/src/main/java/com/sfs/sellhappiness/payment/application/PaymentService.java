@@ -5,10 +5,11 @@ import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
 import java.util.Map;
+import java.util.Optional;
 
 public interface PaymentService {
 
-    public void verifyIamportService(IamportResponse<Payment> iamportResponse, int amount, long orderNo);
+    public void verifyIamportService(IamportResponse<Payment> iamportResponse, int amount, long orderNo, Optional<Long> couponNo);
 
-    CancelData makeCancelData(Map<String, String> map, IamportResponse<Payment> iamportResponse, String code);
+    public CancelData makeCancelData(Map<String, String> map, IamportResponse<Payment> iamportResponse, String code);
 }

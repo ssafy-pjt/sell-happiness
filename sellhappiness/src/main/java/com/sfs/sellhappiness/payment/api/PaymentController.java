@@ -1,5 +1,9 @@
 package com.sfs.sellhappiness.payment.api;
 
+import com.sfs.sellhappiness.domain.coupon.exception.alreadyUsedCouponException;
+import com.sfs.sellhappiness.domain.coupon.exception.expiredCouponException;
+import com.sfs.sellhappiness.domain.coupon.exception.notExistCouponException;
+import com.sfs.sellhappiness.order.exception.notExistOrderException;
 import com.sfs.sellhappiness.payment.IamportConfig;
 import com.sfs.sellhappiness.payment.application.PaymentService;
 import com.sfs.sellhappiness.payment.dto.CancelData;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/payment")
@@ -43,17 +48,27 @@ public class PaymentController {
     * */
     @PostMapping("/verify")
     public ResponseEntity<?> verify(@RequestBody Map<String, String> map)
-            throws IamportResponseException, IOException, verifyIamportException {
+            throws IamportResponseException, IOException, verifyIamportException, notExistOrderException, notExistCouponException, alreadyUsedCouponException, expiredCouponException {
         IamportResponse<Payment> iamportResponse = iamportClient.paymentByImpUid(map.get("imp_uid"));
         int amount = Integer.parseInt(map.get("amount"));
-        Long orderNo = Long.parseLong(map.get("orderNo"));
+        long orderNo = Long.parseLong(map.get("orderNo"));
+        Long couponNo = null;
+        if(map.containsKey("couponNo")) {
+            couponNo = Long.parseLong(map.get("couponNo"));
+        }
 
         log.info("amout = {}", iamportResponse.getResponse().getAmount());
         log.info("buyerEmail = {}", iamportResponse.getResponse().getBuyerEmail());
         log.info("imp_uid = {}", iamportResponse.getResponse().getImpUid());
 
 
-        paymentService.verifyIamportService(iamportResponse, amount, orderNo);
+        // coupon 사용 여부에 따른 다른 처리
+        if(couponNo == null) {
+            paymentService.verifyIamportService(iamportResponse, amount, orderNo, Optional.empty());
+        } else {
+            paymentService.verifyIamportService(iamportResponse, amount, orderNo, Optional.of(couponNo));
+        }
+
 
         return ResponseEntity.ok()
                 .body(iamportResponse);
