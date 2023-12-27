@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,9 @@ public class MemberController {
     // jwt 테스트
     // TODO: 회원 DTO 만들어서 JWT 테스트
     @PostMapping("/login")
-    public ResponseEntity<ResToken> login(ReqMemberLogin reqMemberLogin) {
+    public ResponseEntity<ResToken> login(@RequestBody ReqMemberLogin reqMemberLogin) {
+        log.info("login() =====");
+
         return ResponseEntity.ok()
                 .body(memberService.login(reqMemberLogin));
     }

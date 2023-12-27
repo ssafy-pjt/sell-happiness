@@ -2,14 +2,16 @@ package com.sfs.sellhappiness.domain.member.domain;
 
 import com.sfs.sellhappiness.global.common.domain.Address;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Member {
 
     @Id
@@ -26,13 +28,13 @@ public class Member {
     @Column(length = 100)
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "address_id")
-    Address address;
-
-    private LocalDateTime registDate;
-    @Column(length = 20)
-    private String nickName;
+//    @OneToOne
+//    @JoinColumn(name = "address_id")
+//    Address address;
+//
+//    private LocalDateTime registDate;
+//    @Column(length = 20)
+//    private String nickName;
 
     // 토큰
 

@@ -72,12 +72,12 @@ public final class JwtProvider {
                 .compact();
     }
 
-    public String createRefreshJWT() {
+    public String createRefreshJWT(Authentication authentication) {
         Date now = new Date();
         Date expireDate = new Date(now.getTime() + refreshExpirationTime);
 
         Claims claims = Jwts.claims()
-                .setSubject("access_token") // 회원정보넣기
+                .setSubject(authentication.getName()) // 회원정보넣기
                 .setIssuedAt(now)
                 .setExpiration(expireDate);
 

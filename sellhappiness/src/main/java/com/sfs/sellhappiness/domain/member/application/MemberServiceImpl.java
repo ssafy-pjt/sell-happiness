@@ -6,9 +6,7 @@ import com.sfs.sellhappiness.global.auth.JwtProvider;
 import com.sfs.sellhappiness.global.auth.dto.ResToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -36,18 +34,41 @@ public class MemberServiceImpl implements MemberService{
          */
 //        memberJpaRepository.findByLoginInfo()
 
+        /*
+        * 1. DB에서 email로 refresh토큰 가져와서 만료기간이 안지났으면 access token 재발급
+        * */
+
+        /*
+        * 2. 만료기간이 지났으면 access, refresh token 재발급
+        * */
+
+        log.info("email = {}", reqMemberLogin.getEmail());
+        log.info("password = {}", reqMemberLogin.getPassword());
+        log.info("authentication start ==========");
 //        UsernamePasswordAuthenticationToken
-        Authentication authentication = authenticationManager.authenticate(
+        Authentication authentication = null;
+        authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         reqMemberLogin.getEmail(),
                         reqMemberLogin.getPassword()
                 )
         );
 
+        String accessToken = jwtProvider.createAccessJWT(authentication);
+
+        // refreshToken 생성
+        String refreshToken = jwtProvider.createRefreshJWT(authentication);
+
+        ResToken resToken = new ResToken(accessToken, refreshToken);
+
+        return resToken;
+
+
+
 //        authenticationManager.au
 //        return jwtUtil.createAccessJWT();
 
-        return null;
+//        return null;
     }
 
     // 참고

@@ -4,11 +4,13 @@ import com.sfs.sellhappiness.domain.member.domain.Member;
 import jakarta.persistence.Column;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface MemberJpaRepository extends JpaRepository<Member, Long> {
 
-    @Query("select m from Member m where m.email = :email and m.emailDomain = :emailDomain and m.password = :password")
-    Member findByLoginInfo(String e);
+//    @Query("select m from Member m where m.email = :email and m.emailDomain = :emailDomain and m.password = :password")
+//    Member findByLoginInfo(String e);
 
 //    private String email;
 //    private String emailDomain;

@@ -1,13 +1,11 @@
 package com.sfs.sellhappiness.domain.member.dto;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class ReqMemberLogin {
 
     private String email;
