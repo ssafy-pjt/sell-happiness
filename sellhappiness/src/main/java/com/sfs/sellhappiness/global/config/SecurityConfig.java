@@ -21,8 +21,6 @@ public class SecurityConfig {
 
     private final CorsConfig corsConfig;
 
-
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
         return authenticationConfiguration.getAuthenticationManager();
@@ -36,7 +34,6 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
 //        httpSecurity.apply(new JwtSecurityConfig(jwtUtil, userRepository, tokenRepository));
         return httpSecurity.build();
     }
@@ -45,15 +42,4 @@ public class SecurityConfig {
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//        http.httpBasic().disable()
-//                .csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authRe
-//
-//    }
-
 }
