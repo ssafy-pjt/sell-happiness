@@ -27,3 +27,17 @@ spring:
 #  level:
 #    org.hibernate.SQL: debug
 #    org.hibernate.type: trace
+
+# iamport key
+iamport:
+  api:
+    key: 3706241182160536
+    secret: sTaPEyfRzvhanHocyVkTsgzw6u3yyGzwIQUSpjFYH14HWqA13vBrkmMsMIfeqJpxXhpXFmpPn9Loxbnk
+
+oauth:
+  google:
+    client-id: 651679120216-gedguefmg8lgjhi8vul42c48r9305mol.apps.googleusercontent.com
+    client-secret: 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
+    redirect-uri: http://localhost:8080/login/oauth/code/google
+    token-uri: https://oauth2.googleapis.com/token
+    resource-uri: https://www.googleapis.com/oauth2/v2/userinfo
