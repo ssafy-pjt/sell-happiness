@@ -5,12 +5,14 @@ import com.sfs.sellhappiness.domain.cart.domain.Cart;
 import com.sfs.sellhappiness.domain.cart.dto.req.AddCartReqDto;
 import com.sfs.sellhappiness.domain.cart.dto.req.AddCartReqOptionDto;
 import com.sfs.sellhappiness.domain.cart.dto.req.ChangeCartQuantityReqDto;
+import com.sfs.sellhappiness.domain.cart.dto.req.DeleteCartProductItemReqDto;
 import com.sfs.sellhappiness.domain.cart.dto.res.CartItemsResInterface;
 import com.sfs.sellhappiness.domain.member.dao.MemberRepository;
 import com.sfs.sellhappiness.domain.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,4 +78,22 @@ public class CartService {
             }
         }
     }
+
+    // productItem 삭제
+    public void deleteCartProductItem(@RequestBody DeleteCartProductItemReqDto cartItem) {
+        Long memberId = cartItem.getMemberId();
+        Long productId = cartItem.getProductId();
+        Long productItemId = cartItem.getProductItemId();
+
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        List<Cart> carts = member.getCarts();
+        for (Cart cart : carts) {
+            if (Objects.equals(cart.getProductId(), productId) && Objects.equals(cart.getProductItemId(), productItemId)) {
+                cartRepository.deleteById(cart.getCartId());
+                break;
+            }
+        }
+    }
+
+    // product 삭제
 }

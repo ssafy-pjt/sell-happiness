@@ -3,6 +3,7 @@ package com.sfs.sellhappiness.domain.cart.api;
 import com.sfs.sellhappiness.domain.cart.application.CartService;
 import com.sfs.sellhappiness.domain.cart.dto.req.AddCartReqDto;
 import com.sfs.sellhappiness.domain.cart.dto.req.ChangeCartQuantityReqDto;
+import com.sfs.sellhappiness.domain.cart.dto.req.DeleteCartProductItemReqDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,5 +24,10 @@ public class CartController {
     @PostMapping("/quantity")
     public void changeCartQuantity(@RequestBody ChangeCartQuantityReqDto cartItem) {
         cartService.changeCartQuantity(cartItem);
+    }
+
+    @PostMapping("/product-item")
+    public void deleteCartProductItem(@RequestBody DeleteCartProductItemReqDto cartItem) {
+        cartService.deleteCartProductItem(cartItem);
     }
 }
