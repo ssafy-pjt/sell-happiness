@@ -15,6 +15,7 @@ public enum ExceptionEnum {
     // Custom Exception E 1000번대
     EXPIRED_JWT(HttpStatus.UNAUTHORIZED,"CE1000","만료된 Access 토큰입니다. Refresh 토큰을 이용해서 새로운 Access 토큰을 발급 받으세요."),
     INVALID_JWT(HttpStatus.UNAUTHORIZED, "CE1001", "지원되지 않거나 잘못된 토큰 입니다."),
+    NOT_EXIST_REFRESH_JWT(HttpStatus.UNAUTHORIZED, "CE1002", "존재하지 않거나 만료된 Refresh 토큰입니다. 다시 로그인해주세요"),
 
     // Member Exception E 2000번대
     SECURITY(HttpStatus.UNAUTHORIZED, "CE2000", "로그인이 필요합니다."),

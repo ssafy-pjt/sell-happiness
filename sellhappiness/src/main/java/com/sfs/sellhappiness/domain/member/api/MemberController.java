@@ -1,16 +1,16 @@
 package com.sfs.sellhappiness.domain.member.api;
 
 import com.sfs.sellhappiness.domain.member.application.MemberService;
+import com.sfs.sellhappiness.domain.member.domain.Member;
 import com.sfs.sellhappiness.domain.member.dto.ReqMemberLogin;
 import com.sfs.sellhappiness.global.auth.JwtProperties;
+import com.sfs.sellhappiness.global.auth.dto.ReqToken;
 import com.sfs.sellhappiness.global.auth.dto.ResToken;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/members")
@@ -29,6 +29,8 @@ public class MemberController {
         return ResponseEntity.ok()
                 .body(memberService.login(reqMemberLogin));
     }
+
+
 
 
 }

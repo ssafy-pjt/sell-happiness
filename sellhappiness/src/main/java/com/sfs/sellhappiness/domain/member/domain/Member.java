@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @ToString
-//@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -21,8 +20,6 @@ public class Member extends BaseTimeEntity {
 
     @Column(length = 50)
     private String email;
-//    @Column(length = 10)
-//    private String emailDomain;
     @Column(length = 128)
     private String password;
     @Column(length = 100)
@@ -32,7 +29,6 @@ public class Member extends BaseTimeEntity {
     @JoinColumn(name = "address_id")
     Address address;
 
-//    private LocalDateTime registDate;
     @Column(length = 20)
     private String nickName;
 
@@ -44,8 +40,5 @@ public class Member extends BaseTimeEntity {
         this.address = address;
         this.nickName = nickName;
     }
-
-    // 토큰
-
 
 }

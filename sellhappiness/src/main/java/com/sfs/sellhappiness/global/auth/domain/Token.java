@@ -6,30 +6,40 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.data.domain.Persistable;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Entity
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Token extends BaseTimeEntity {
+public class Token extends BaseTimeEntity implements Persistable<Long> {
+//public class Token extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private Long memberId;
+//    private Long memberId;
+    private String email;
     private String refreshToken;
-    private LocalDateTime expireDate;
-    private MemberType memberType;
+    private Date expireDate;
+//    private MemberType memberType;
 
     @Builder
-    private Token(Long memberId, String refreshToken, LocalDateTime expireDate, MemberType memberType) {
-        this.memberId = memberId;
+//    private Token(Long memberId, String refreshToken, Date expireDate) {
+    public Token(String email, String refreshToken, Date expireDate) {
+        this.email = email;
         this.refreshToken = refreshToken;
         this.expireDate = expireDate;
-        this.memberType = memberType;
+//        this.memberType = memberType;
+    }
+
+
+    @Override
+    public boolean isNew() {
+        return id == null;
     }
 }

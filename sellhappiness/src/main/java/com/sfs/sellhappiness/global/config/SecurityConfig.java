@@ -30,7 +30,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource())) // cors 설정
-                .authorizeHttpRequests(request -> request.requestMatchers("/api/members/login")
+//                .authorizeHttpRequests(request -> request.requestMatchers("/api/members/login")
+                // TODO: 나중에 csrf 처리
+                .authorizeHttpRequests(request -> request.requestMatchers("/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

@@ -1,6 +1,10 @@
 package com.sfs.sellhappiness.global.auth;
 
 import com.sfs.sellhappiness.domain.member.application.MemberDetailsServiceImpl;
+import com.sfs.sellhappiness.global.auth.application.TokenService;
+import com.sfs.sellhappiness.global.auth.domain.Token;
+import com.sfs.sellhappiness.global.auth.dto.ReqToken;
+import com.sfs.sellhappiness.global.common.domain.MemberType;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -22,8 +26,6 @@ import static com.sfs.sellhappiness.global.error.ExceptionEnum.*;
 @Component
 public final class JwtProvider {
 
-//    private final JwtProperties properties;
-
     // 추가
     private final Key secretKey;
     private final Long accessExpirationTime;
@@ -31,6 +33,8 @@ public final class JwtProvider {
 
     @Autowired
     private MemberDetailsServiceImpl memberDetailsService;
+    @Autowired
+    private TokenService tokenService;
 
     public JwtProvider(JwtProperties properties) {
         byte[] keyBytes = Decoders.BASE64.decode(properties.getSecret());
@@ -75,9 +79,10 @@ public final class JwtProvider {
     public String createRefreshJWT(Authentication authentication) {
         Date now = new Date();
         Date expireDate = new Date(now.getTime() + refreshExpirationTime);
+        String emailId = authentication.getName();
 
         Claims claims = Jwts.claims()
-                .setSubject(authentication.getName()) // 회원정보넣기
+                .setSubject(emailId) // 회원정보넣기
                 .setIssuedAt(now)
                 .setExpiration(expireDate);
 
@@ -88,8 +93,11 @@ public final class JwtProvider {
                 .compact();
 
         // TODO: DB에 JWT 저장하기
-
-
+        // 회원 ID, 토큰, 만료일, 멤버타입
+        ReqToken reqToken = new ReqToken(emailId, jwt, expireDate);
+        Token tokenEntity = reqToken.toEntity(reqToken);
+        // 저장
+        tokenService.saveToken(tokenEntity);
 
         return jwt;
     }
@@ -99,17 +107,16 @@ public final class JwtProvider {
      */
     public boolean validateJWT(String jwt) {
         try {
-//            JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(secretKey).build();
-//            jwtParser.parseClaimsJws(jwt);
-//            Jwts.parser().setSigningKey(properties.getSecret()).parseClaimsJws(jwt);
             Jwts.parserBuilder()
                     .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(jwt);
             return true;
+
         } catch (ExpiredJwtException e) {
             log.error(EXPIRED_JWT.getMessage());
             throw new RuntimeException(e);
+
         } catch (JwtException e) {
             log.error(INVALID_JWT.getMessage());
             // TODO: 임시 에러 처리
@@ -124,15 +131,12 @@ public final class JwtProvider {
         String userPrincipal = Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
-                .parseClaimsJws(token).getBody().getSubject();
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
 
-        // TODO: 로직 수정하기
         UserDetails userDetails = memberDetailsService.loadUserByUsername(userPrincipal);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-
-//        return new UsernamePasswordAuthenticationToken(반환된userdetails, credentials, 반환된userdetails.getAuthorities());/
-//        return null;
-
     }
 
 
