@@ -24,6 +24,8 @@ public class QItem extends EntityPathBase<Item> {
 
     public final NumberPath<Long> Id = createNumber("Id", Long.class);
 
+    public final StringPath imgUrl = createString("imgUrl");
+
     public final DateTimePath<java.time.LocalDateTime> item_reg_date = createDateTime("item_reg_date", java.time.LocalDateTime.class);
 
     public final DateTimePath<java.time.LocalDateTime> item_upd_date = createDateTime("item_upd_date", java.time.LocalDateTime.class);
@@ -35,8 +37,6 @@ public class QItem extends EntityPathBase<Item> {
     public final StringPath itemSellStatus = createString("itemSellStatus");
 
     public final ListPath<OptionItem, QOptionItem> optionItems = this.<OptionItem, QOptionItem>createList("optionItems", OptionItem.class, QOptionItem.class, PathInits.DIRECT2);
-
-    public final NumberPath<Long> price = createNumber("price", Long.class);
 
     public QItem(String variable) {
         super(Item.class, forVariable(variable));

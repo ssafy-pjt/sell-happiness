@@ -24,11 +24,14 @@ public class ItemFormDto {
 
     private String itemSellStatus;
 
+    private String imgUrl;
+
     @Builder
-    public ItemFormDto(String name, String itemDetail, String itemSellStatus) {
+    public ItemFormDto(String name, String itemDetail, String itemSellStatus, String imgUrl) {
         this.name = name;
         this.itemDetail = itemDetail;
         this.itemSellStatus = itemSellStatus;
+        this.imgUrl = imgUrl;
     }
 
     public Item toEntity(ItemFormDto dto) {
@@ -36,6 +39,7 @@ public class ItemFormDto {
                 .itemName(dto.name)
                 .itemDetail(dto.itemDetail)
                 .itemSellStatus(dto.itemSellStatus)
+                .imgUrl(dto.imgUrl)
                 .build();
 
         return entity;

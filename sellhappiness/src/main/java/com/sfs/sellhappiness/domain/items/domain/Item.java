@@ -31,6 +31,9 @@ public class Item {
     private String itemDetail; // 상품 상세 설명
     private String itemSellStatus; // 상품 판매 상태
 
+    @NotNull
+    private String imgUrl;
+
     @CreationTimestamp // insert쿼리 발생시에 현재시간 값을 적용
     @Column(name = "item_reg_date")
     private LocalDateTime item_reg_date; // 상품 등록 시간
@@ -48,10 +51,11 @@ public class Item {
 
     // 생성자에 Builder 적용
     @Builder
-    public Item (String itemName, String itemDetail, String itemSellStatus){
+    public Item (String itemName, String itemDetail, String itemSellStatus, String imgUrl){
         this.itemName = itemName;
         this.itemDetail = itemDetail;
         this.itemSellStatus = itemSellStatus;
+        this.imgUrl = imgUrl;
     }
 
 }
