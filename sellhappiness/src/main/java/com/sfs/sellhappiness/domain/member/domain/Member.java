@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @Getter
 @Setter
 @Entity
@@ -17,7 +19,6 @@ public class Member {
     @Column(name = "member_email")
     private String memberEmail;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @OneToMany(mappedBy = "member")
+    ArrayList<Cart> carts = new ArrayList<>();
 }

@@ -7,9 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Builder
 @AllArgsConstructor
@@ -21,11 +18,15 @@ public class Cart {
     @Column(name = "cart_id")
     private Long cartId;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id")
-    private Member member;
+    @Column(name = "product_id")
+    private Long productId;
 
-    @OneToMany
-    @JoinColumn(name = "cart_id")
-    List<CartItem> cartItems = new ArrayList<>();
+    @Column(name = "product_item_id")
+    private Long productItemId;
+
+    private Integer quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 }

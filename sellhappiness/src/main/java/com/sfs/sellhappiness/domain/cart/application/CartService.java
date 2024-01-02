@@ -5,6 +5,8 @@ import com.sfs.sellhappiness.domain.cart.dao.CartRepository;
 import com.sfs.sellhappiness.domain.cart.domain.Cart;
 import com.sfs.sellhappiness.domain.cart.domain.CartItem;
 import com.sfs.sellhappiness.domain.cart.dto.req.AddCartItemReqDto;
+import com.sfs.sellhappiness.domain.cart.dto.res.CartItemsResDto;
+import com.sfs.sellhappiness.domain.cart.dto.res.CartItemsResInterface;
 import com.sfs.sellhappiness.domain.member.dao.MemberRepository;
 import com.sfs.sellhappiness.domain.member.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class CartService {
     private final CartItemRepository cartItemRepository;
     private final MemberRepository memberRepository;
 
+    // 장바구니에 상품 추가
     public void addCartItem(Long memberId, Long productId, List<AddCartItemReqDto> cartItemReqDtos) {
         Member member = memberRepository.findByMemberId(memberId).orElseThrow();
         Cart cart = null;
@@ -69,8 +72,13 @@ public class CartService {
                     cartItemRepository.save(cartItem);
                 }
             }
-
             System.out.println("exist cart");
         }
+    }
+
+    // 장바구니 목록 가져오기
+    public void getCartItems() {
+        List<CartItemsResInterface> cartItems = cartRepository.findCartItems();
+        System.out.println("get cart items");
     }
 }

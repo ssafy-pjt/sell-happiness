@@ -24,9 +24,13 @@ public class QCart extends EntityPathBase<Cart> {
 
     public final NumberPath<Long> cartId = createNumber("cartId", Long.class);
 
-    public final ListPath<CartItem, QCartItem> cartItems = this.<CartItem, QCartItem>createList("cartItems", CartItem.class, QCartItem.class, PathInits.DIRECT2);
-
     public final com.sfs.sellhappiness.domain.member.domain.QMember member;
+
+    public final NumberPath<Long> productId = createNumber("productId", Long.class);
+
+    public final NumberPath<Long> productItemId = createNumber("productItemId", Long.class);
+
+    public final NumberPath<Integer> quantity = createNumber("quantity", Integer.class);
 
     public QCart(String variable) {
         this(Cart.class, forVariable(variable), INITS);
@@ -46,7 +50,7 @@ public class QCart extends EntityPathBase<Cart> {
 
     public QCart(Class<? extends Cart> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new com.sfs.sellhappiness.domain.member.domain.QMember(forProperty("member"), inits.get("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.sfs.sellhappiness.domain.member.domain.QMember(forProperty("member")) : null;
     }
 
 }

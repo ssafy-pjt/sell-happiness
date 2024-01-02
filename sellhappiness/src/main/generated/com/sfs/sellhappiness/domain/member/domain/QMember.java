@@ -18,35 +18,24 @@ public class QMember extends EntityPathBase<Member> {
 
     private static final long serialVersionUID = -1308788794L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QMember member = new QMember("member1");
 
-    public final com.sfs.sellhappiness.domain.cart.domain.QCart cart;
+    public final ListPath<com.sfs.sellhappiness.domain.cart.domain.Cart, com.sfs.sellhappiness.domain.cart.domain.QCart> carts = this.<com.sfs.sellhappiness.domain.cart.domain.Cart, com.sfs.sellhappiness.domain.cart.domain.QCart>createList("carts", com.sfs.sellhappiness.domain.cart.domain.Cart.class, com.sfs.sellhappiness.domain.cart.domain.QCart.class, PathInits.DIRECT2);
 
     public final StringPath memberEmail = createString("memberEmail");
 
     public final NumberPath<Long> memberId = createNumber("memberId", Long.class);
 
     public QMember(String variable) {
-        this(Member.class, forVariable(variable), INITS);
+        super(Member.class, forVariable(variable));
     }
 
     public QMember(Path<? extends Member> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QMember(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QMember(PathMetadata metadata, PathInits inits) {
-        this(Member.class, metadata, inits);
-    }
-
-    public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.cart = inits.isInitialized("cart") ? new com.sfs.sellhappiness.domain.cart.domain.QCart(forProperty("cart"), inits.get("cart")) : null;
+        super(Member.class, metadata);
     }
 
 }
