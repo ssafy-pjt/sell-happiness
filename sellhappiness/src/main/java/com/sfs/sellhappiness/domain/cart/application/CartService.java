@@ -2,10 +2,7 @@ package com.sfs.sellhappiness.domain.cart.application;
 
 import com.sfs.sellhappiness.domain.cart.dao.CartRepository;
 import com.sfs.sellhappiness.domain.cart.domain.Cart;
-import com.sfs.sellhappiness.domain.cart.dto.req.AddCartReqDto;
-import com.sfs.sellhappiness.domain.cart.dto.req.AddCartReqOptionDto;
-import com.sfs.sellhappiness.domain.cart.dto.req.ChangeCartQuantityReqDto;
-import com.sfs.sellhappiness.domain.cart.dto.req.DeleteCartProductItemReqDto;
+import com.sfs.sellhappiness.domain.cart.dto.req.*;
 import com.sfs.sellhappiness.domain.cart.dto.res.CartItemsResInterface;
 import com.sfs.sellhappiness.domain.member.dao.MemberRepository;
 import com.sfs.sellhappiness.domain.member.domain.Member;
@@ -96,4 +93,16 @@ public class CartService {
     }
 
     // product 삭제
+    public void deleteCartProduct(@RequestBody DeleteCartProductReqDto cartItem) {
+        Long memberId = cartItem.getMemberId();
+        Long productId = cartItem.getProductId();
+
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        List<Cart> carts = member.getCarts();
+        for (Cart cart : carts) {
+            if (Objects.equals(cart.getProductId(), productId)) {
+                cartRepository.deleteById(cart.getCartId());
+            }
+        }
+    }
 }
