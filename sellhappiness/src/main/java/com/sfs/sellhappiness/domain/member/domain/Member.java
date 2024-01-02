@@ -2,13 +2,17 @@ package com.sfs.sellhappiness.domain.member.domain;
 
 import com.sfs.sellhappiness.domain.cart.domain.Cart;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "member")
 public class Member {
@@ -20,5 +24,5 @@ public class Member {
     private String memberEmail;
 
     @OneToMany(mappedBy = "member")
-    ArrayList<Cart> carts = new ArrayList<>();
+    List<Cart> carts = new ArrayList<>(); // TODO: List vs ArrayList // Could not set value of type [org.hibernate.collection.spi.PersistentBag]:
 }

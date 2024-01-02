@@ -2,16 +2,14 @@ package com.sfs.sellhappiness.domain.cart.domain;
 
 import com.sfs.sellhappiness.domain.member.domain.Member;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
-@Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "cart")
 public class Cart {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
