@@ -28,15 +28,8 @@ public class Item {
     private String itemName;
 
     @NotNull
-    private Long price;
-
-//    @NotNull
-//    private int stockNumber; // 재고 수량
-
-    @NotNull
     private String itemDetail; // 상품 상세 설명
     private String itemSellStatus; // 상품 판매 상태
-//    private String imgUrl;
 
     @CreationTimestamp // insert쿼리 발생시에 현재시간 값을 적용
     @Column(name = "item_reg_date")
@@ -53,15 +46,10 @@ public class Item {
     @JoinColumn(name = "item_id")
     private List<OptionItem> optionItems = new ArrayList<>();
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "item_img_id")
-//    private List<ItemImg> itemImgs = new ArrayList<>();
-
     // 생성자에 Builder 적용
     @Builder
-    public Item (String itemName, Long price, String itemDetail, String itemSellStatus){
+    public Item (String itemName, String itemDetail, String itemSellStatus){
         this.itemName = itemName;
-        this.price = price;
         this.itemDetail = itemDetail;
         this.itemSellStatus = itemSellStatus;
     }
