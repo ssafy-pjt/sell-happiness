@@ -10,7 +10,7 @@ public class Option {
     private Long optionId;
 
     @Column(name = "option_type")
-    private Integer optionType; // TODO: INT VS INTEGER // 0, 1
+    private Integer optionType; // 0, 1
 
     @Column(name = "option_name")
     private String optionName;

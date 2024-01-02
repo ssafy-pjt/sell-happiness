@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,16 +38,15 @@ public class CartService {
             boolean isOptionExist = false;
             for (Cart cart : carts) {
                 // if (cart의 productId == productId && cart의 productItemId == option의 productItemId) 수량만 증가
-                // TODO: Number objects are compared using '==', not 'equals()' // if (cart.getProductId() == productId && cart.getProductItemId() == option.getProductItemId()) {
                 if (Objects.equals(cart.getProductId(), productId) && Objects.equals(cart.getProductItemId(), option.getProductItemId())) {
-                    cart.setQuantity(cart.getQuantity() + option.getQuantity()); // TODO: 연관관계의 주인
+                    cart.setQuantity(cart.getQuantity() + option.getQuantity());
                     isOptionExist = true;
                 }
             }
             // else 새로 추가
             if (!isOptionExist) {
                 Cart cart = Cart.builder()
-                        .cartId(null) // TODO: org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Unique index or primary key violation: // cartId도 null로 넣어주어야 한다.
+                        .cartId(null)
                         .productId(productId)
                         .productItemId(option.getProductItemId())
                         .quantity(option.getQuantity())
