@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -31,6 +32,9 @@ public class Member extends BaseTimeEntity {
 
     @Column(length = 20)
     private String nickName;
+  
+    @OneToMany(mappedBy = "member")
+    List<Cart> carts = new ArrayList<>(); 
 
     @Builder
     private Member(String email, String password, String name, Address address, String nickName) {
@@ -40,5 +44,4 @@ public class Member extends BaseTimeEntity {
         this.address = address;
         this.nickName = nickName;
     }
-
 }
