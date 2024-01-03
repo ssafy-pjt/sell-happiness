@@ -1,4 +1,4 @@
-package com.sfs.sellhappiness.domain.sample.dto;
+package com.sfs.sellhappiness.domain.cart.dto;
 
 //import lombok.Data;
 
