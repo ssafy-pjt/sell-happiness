@@ -1,28 +1,47 @@
 package com.sfs.sellhappiness.domain.member.domain;
 
-import com.sfs.sellhappiness.domain.cart.domain.Cart;
+import com.sfs.sellhappiness.global.common.BaseTimeEntity;
+import com.sfs.sellhappiness.global.common.domain.Address;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "member")
-public class Member {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Getter
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+public class Member extends BaseTimeEntity {
+
+    @Id
+    @GeneratedValue
     @Column(name = "member_id")
-    private Long memberId;
+    private Long id;
 
-    @Column(name = "member_email")
-    private String memberEmail;
+    @Column(length = 50)
+    private String email;
+    @Column(length = 128)
+    private String password;
+    @Column(length = 100)
+    private String name;
 
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    Address address;
+
+    @Column(length = 20)
+    private String nickName;
+  
     @OneToMany(mappedBy = "member")
-    List<Cart> carts = new ArrayList<>(); // TODO: List vs ArrayList // Could not set value of type [org.hibernate.collection.spi.PersistentBag]:
+    List<Cart> carts = new ArrayList<>(); 
+
+    @Builder
+    private Member(String email, String password, String name, Address address, String nickName) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.address = address;
+        this.nickName = nickName;
+    }
 }
