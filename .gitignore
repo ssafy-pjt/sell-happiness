@@ -312,5 +312,5 @@ dist-ssr
 *.sln
 *.sw?
 
-
+*.yml
 # End of https://www.toptal.com/developers/gitignore/api/java,web,vue,vuejs,windows,macos, gradle, intellij
