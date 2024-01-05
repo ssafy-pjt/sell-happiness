@@ -1,6 +1,7 @@
 package com.sfs.sellhappiness.domain.product.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
 @Table(name = "option")
@@ -21,4 +22,11 @@ public class Option {
     @ManyToOne
     @JoinColumn(name = "product_item_id")
     private ProductItem productItem;
+
+    @Builder
+    public Option(String option_name, String option_value, int option_type ) {
+        this.optionName = option_name;
+        this.optionValue = option_value;
+        this.optionType = option_type;
+    }
 }

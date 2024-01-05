@@ -1,9 +1,7 @@
-package com.sfs.sellhappiness.domain.items.dto;
+package com.sfs.sellhappiness.domain.product.dto;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 

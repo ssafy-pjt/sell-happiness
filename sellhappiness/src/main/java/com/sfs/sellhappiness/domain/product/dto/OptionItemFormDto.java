@@ -1,4 +1,4 @@
-package com.sfs.sellhappiness.domain.items.dto;
+package com.sfs.sellhappiness.domain.product.dto;
 
 import com.sfs.sellhappiness.domain.items.domain.OptionItem;
 import lombok.Builder;
@@ -19,13 +19,13 @@ public class OptionItemFormDto {
         this.stockNumber = stockNumber;
     }
 
-    public OptionItem toEntity(OptionItemFormDto dto){
-        OptionItem entity = OptionItem.builder()
-                .price(dto.price)
-                .stockNumber(dto.stockNumber)
-                .build();
-
-                return entity;
-    }
+//    public OptionItem toEntity(OptionItemFormDto dto){
+//        OptionItem entity = OptionItem.builder()
+//                .price(dto.price)
+//                .stockNumber(dto.stockNumber)
+//                .build();
+//
+//                return entity;
+//    }
 
 }

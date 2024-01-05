@@ -4,13 +4,8 @@ package com.sfs.sellhappiness.domain.items.application;
 import com.sfs.sellhappiness.domain.items.dao.CategoryRepository;
 import com.sfs.sellhappiness.domain.items.dao.ItemRepository;
 import com.sfs.sellhappiness.domain.items.domain.Item;
-import com.sfs.sellhappiness.domain.items.dto.ItemFormDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

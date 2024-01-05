@@ -1,5 +1,6 @@
-package com.sfs.sellhappiness.domain.items.domain;
+package com.sfs.sellhappiness.domain.product.domain;
 
+import com.sfs.sellhappiness.domain.items.domain.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -8,7 +9,7 @@ import lombok.Getter;
 public class CategoryProduct {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_product_id")
+    @Column(name = "category_item_id")
     private Long Id;
 
     @ManyToOne(fetch = FetchType.LAZY)

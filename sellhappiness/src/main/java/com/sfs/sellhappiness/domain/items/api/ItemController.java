@@ -1,13 +1,10 @@
 package com.sfs.sellhappiness.domain.items.api;
 
 import com.sfs.sellhappiness.domain.items.application.ItemServiceImpl;
-import com.sfs.sellhappiness.domain.items.dto.ItemFormDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.annotation.GetExchange;
 
 @RestController
 @RequestMapping("/item")
